@@ -33,6 +33,10 @@ h2 {
 /*  border-bottom: 1px solid #C6EC8C; */
 }
 
+img {
+  width: 530px;
+}
+
 a:link {
   color: #ffffff;
 }

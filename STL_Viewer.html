@@ -26,6 +26,21 @@
 
 <div id="mainText">
   <h1> Command-line tool for viewing STL files </h1>
+  <h2> 04/30/2016 </h2>
+  <p>
+    Succesfully managed to create a shell-script to parse ASCII STL files and render them in 3D using GNUPlot!
+  </p>
+  <p>
+    The script is actually incredibly simple and used AWK to parse the raw ASCII file into a format that is suitable for GNUPlot. GNUPlot then simply plots it. </p>
+
+  <img src="images/sphere-stlgp-screenshot.png">
+
+  <p>
+    As can be seen in the image, I still need to figure out how to get GNUPlot to scale the axes correctly. Also, there are a lot of internal lines connecting the triangles. This seems to be due to GNUPlot's tendency to create isolines between datablocks. These seem relatively simple to fix in the future so I'm going to switch tracks to figuring out how to parse binary files. 
+  </p>
+
+  Source code for stlgp-ascii is available at <a href="https://github.com/siveshs/stlgp"> https://github.com/siveshs/stlgp </a>
+
   <h2> 04/26/2016 </h2>
   <p> This is a work-in-progress. </p>
 
