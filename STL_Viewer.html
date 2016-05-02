@@ -26,6 +26,40 @@
 
 <div id="mainText">
   <h1> Command-line tool for viewing STL files </h1>
+  <h2> 05/01/2016 </h2>
+  <p>
+    Last night I put the finishing touches of my first C-program that used binary and ASCII file IO. I have to admit it was pretty exhilirating (!) to see a binary file with a bunch of gibberish turn into a clearly legible ASCII file. Turning that into a GNUplot graph was a piece-of-cake!
+  </p>
+
+  <p>
+    I've cleaned up the GNUplot files and have set it up so that the displayed graph is autoscaled equally in all 3 directions.
+  </p>
+
+  <p>
+    There are now two shell scripts for viewing STL's from the command line:
+    <ul>
+      <li><strong>stlgp-ascii.sh:</strong> This script takes ASCII files as its input and uses awk and GNUplot to parse and render the STL file. The STL is plotted with lines since it is assumed that an ASCII file would have fewer vertices/faces and so it would be most visible with lines.</li>
+      <img src="images/ASCII_STL_Render.png">
+
+      <li><strong>stlgp-bin.sh:</strong> This script takes binary STL files as its input. It uses a compiled C program to parse the binary file into an ASCII file that GNUPlot can render. The STL is plotted only with points since it is assumed that a binary STL file would have significantly higher vertices/faces and so points would accurately depict the 3D content without too many distracting lines.</li>
+        <img src="images/Binary_STL_Render.png">
+      </ul>
+    </p>
+
+    <p> Although I'm considering this project completed for now, here are some future improvements that I'd like to see:
+      <ul>
+        <li> From a command-line sophistication perspective, I would like to set this project up so that it could be installed with a makefile. For the mac, it would be interesting to learn how to create and add repos to homebrew. Perhaps, even cmake in order to allow cross-platform 'installability'.</li>
+        <li>It would be nice if the user didn't have to know whether a given STL file was binary or ASCII. This could conceivable be done by a C-program that automatically determines if an STL file has been provided, what kind of STL file it is and then parses it accordingly into a format for GNUplot to render.</li>
+        <li>The ideal would be to have single C-program that parses the file and also renders it in 3D using a suitable library. I've started to look into openGL for this but it seems to have a steep learning curve.</li>
+      </ul>
+    </p>
+
+    <p><strong>Notes</strong>
+      <ol>
+        <li> The snowman STL was created by 'someandy' at Thingiverse (<a href="http://www.thingiverse.com/thing:194956"> http://www.thingiverse.com/thing:194956</a>).</li>
+        <li> Found lots of useful links while working on this project. The wikipedia entry on STL files came in handy and so was Paul Bourke's website with a detailed <a href="http://paulbourke.net/dataformats/">listing of file formats</a>. </li>
+      </ol>
+    </p>
   <h2> 04/30/2016 </h2>
   <p>
     Succesfully managed to create a shell-script to parse ASCII STL files and render them in 3D using GNUPlot!
@@ -36,7 +70,7 @@
   <img src="images/sphere-stlgp-screenshot.png">
 
   <p>
-    As can be seen in the image, I still need to figure out how to get GNUPlot to scale the axes correctly. Also, there are a lot of internal lines connecting the triangles. This seems to be due to GNUPlot's tendency to create isolines between datablocks. These seem relatively simple to fix in the future so I'm going to switch tracks to figuring out how to parse binary files. 
+    As can be seen in the image, I still need to figure out how to get GNUPlot to scale the axes correctly. Also, there are a lot of internal lines connecting the triangles. This seems to be due to GNUPlot's tendency to create isolines between datablocks. These seem relatively simple to fix in the future so I'm going to switch tracks to figuring out how to parse binary files.
   </p>
 
   Source code for stlgp-ascii is available at <a href="https://github.com/siveshs/stlgp"> https://github.com/siveshs/stlgp </a>

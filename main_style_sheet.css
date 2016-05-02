@@ -3,8 +3,8 @@
 body {
   font-family: "Helvetica Neue", sans-serif;
   font-size:16px;
-  color: #c9cfce;
-  background-color: #21252b;
+  color: #eeffff;
+  background-color: #5d9ac7;
   line-height: 150%;
 }
 
@@ -54,7 +54,7 @@ a:visited {
   position: absolute;
   width: 800px;
   height: 60px;
-  border-bottom: 1px solid #ffffff;
+  /*border-bottom: 1px solid #ffffff;*/
   margin: 0;
   margin-left: 10px;
   padding: 0 0 0 10px;
@@ -67,7 +67,7 @@ a:visited {
   margin: 0;
   margin-top: 70px;
   margin-left: 10px;
-  border-right: 1px solid #ffffff;
+  /*border-right: 1px solid #ffffff;*/
   padding: 0 0 0 10px;
   font-weight: normal;
   color: #ffffff;
