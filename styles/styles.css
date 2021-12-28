@@ -1,0 +1,45 @@
+html,
+body {
+  box-sizing: border-box;
+  color: #363743;
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.6;
+}
+
+div.main-content {
+  padding: 0.5rem;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+nav {
+  /* border-bottom: 2px solid; */
+  padding-bottom: 0.25rem;
+}
+
+a {
+  color: #363743;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ff6868;
+}
+
+a.nav {
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0.25rem;
+}
+
+a.nav:hover {
+  color: #ff6868;
+  border-bottom: 0.15rem solid;
+}
+
+ul.project-list {
+  list-style-type: square;
+  padding-left: 0px;
+  line-height: 2.5rem;
+}
