@@ -39,7 +39,7 @@ a.nav:hover {
 }
 
 ul.project-list {
-  list-style-type: square;
+  list-style-type: none;
   padding-left: 0px;
   line-height: 2.5rem;
 }
