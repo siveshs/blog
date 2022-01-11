@@ -42,3 +42,22 @@ ul.project-list {
   padding-left: 0px;
   line-height: 2.5rem;
 }
+
+iframe {
+  border: 1px solid #363743;
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 250px;
+}
+
+code {
+  border-radius: 0.25rem;
+}
+
+pre code {
+  border-radius: 0.5rem;
+}
+
+img {
+  width: 100%;
+}

@@ -20,41 +20,49 @@
     </nav>
     <div class="main-content">
         <h1>Blockchain Data Analysis</h1>
-        <p style="text-align: right;">Last edited: Dec 29, 2021</p>
+        <p style="text-align: right;">Started: Dec 29, 2021</p>
+        <p style="text-align: right;">Last edited: Jan 10, 2022</p>
         <h2>Motivation</h2>
         <p>
             <ul>
                 <li>Which ethereum address has the highest amount of USDC associated with it?</li>
-                <li>What does the distribution of liquidity providers on uniswap look like? How about on sushiswap? And on curve.finance?</li>
-                <li>How has the price for my favorite Art Blocks NFT changed over time?</li>
                 <li>How many people own 0xdeafbeef's NFTs?</li>
+                <li>How has the price for my favorite Art Blocks NFT changed over time?</li>
+                <li>What does the distribution of liquidity providers on uniswap look like? How about on sushiswap? And on curve.finance?</li>
             </ul>
         </p>
         <p>
-            So many questions... although there are lots of people writing articles and creating dashboards to track these metrics, I've been curious to learn what it takes to answer some of these questions <em>on my own</em>. After all, isn't the point of a public, decentralized blockchain that me, as a member of the public, can answer any questions that I may have without relying on a central party? Or at least I should be able to verify that the data and analysis done by someone else aligns with how I'd approach the problem?
+            So many questions... There seems to be no shortage of people writing articles and creating dashboards to track protocol activity on ethereum. However, I've been curious to learn what it takes to answer some of these questions <em>on my own</em>. After all, part of the point of a <em>transparent</em>, <em>public</em>, decentralized blockchain should be that me, as a member of the public, should be able to answer any questions that I may have without having to rely only on a third party. At the very least,  I should be able to verify that the data and analysis done by someone else aligns with how I'd approach the question.
         </p>
         <p>
-            I'm hoping a side benefit is that this excursion may allow me to better understand and appreciate how various smart contracts and blockchain protocols function under-the-hood.
+            A potential side benefit may be that this excursion will allow me to better understand and appreciate how various smart contracts and blockchain protocols function under-the-hood.
         </p>
         <h2>Current Status</h2>
         <p>            
-            Unsurprisingly, there seem to be many ways to approach this. The tool that I've started experimenting with is <a href="dune.xyz">Dune Analytics</a>, courtesy some tutorials by <a href="https://twitter.com/andrewhong5297">Andrew Hong</a>. Eventually, I'd like to learn about The Graph and even further down the road I'd like to see what it takes to query this stuff directly.
+            Unsurprisingly, there seem to be many ways to approach this. The tool that I've started experimenting with is <a href="dune.xyz">Dune Analytics</a>, courtesy some fantastic tutorials by <a href="https://twitter.com/andrewhong5297">Andrew Hong</a>. Eventually, I'd like to learn about The Graph, bitquery, blocknative, setting up a custom infura or alchemy node and even further down the road I'd like to see what it takes to query this stuff directly.
+        </p>
+        <h2>Dune Analytics</h2>
+        <p>
+            dune.xyz seems to have a backend that is continuously adding data from ethereum (and a few other EVM-compatible blockchains) into a postgreSQL database that can be queried using their web interface.
         </p>
         <p>
-            dune.xyz seems to have a backend that is continuously adding data from ethereum (and a few other blockchains) into a SQL database that can then be queried using SQL.
+            I've never done SQL before starting this project. It's been super fun getting to learn this and being able to see results plotted within Dune for contracts and questions that I care about. Kind of like Excel analysis on steroids.
         </p>
         <p>
-            So, now I need to learn SQL, dune.xyz and the underlying smart contracts. Sounds like this is going to take some time :-)
-        </p>
-        <p>
-            Articles under review:
+            <h3>Articles under review:</h3>
             <ul>
-                <li><a href="https://towardsdatascience.com/your-guide-to-basic-sql-while-learning-ethereum-at-the-same-time-9eac17a05929">Your guide to basic SQL while learning Ethereum at the same time</a> by Andrew Hong</li>
-                <li><a href="https://towardsdatascience.com/your-guide-to-intermediate-sql-while-learning-ethereum-at-the-same-time-7b25119ef1e2">Your guide to intermediate SQL while learning Ethereum at the same time</a> by Andrew Hong</li>
-                <li><a href="https://www.freecodecamp.org/news/sql-and-databases-full-course/">SQL and Databases - A Full Course for Beginners</a></li>
-                <li><a href="https://ath.mirror.xyz/mbR1n_CvflL1KIKCTG42bnM4HpfGBqDPNndH8mu2eJw">SQL on Ethereum: How to Work With All the Data from a Transaction</a></li>
-                <li><a href="https://medium.com/zengo/dune-analytics-introduction-tutorial-with-examples-d2c764600d6">Dune Analytics introduction tutorial (with examples)</a></li>
+                <li>Content by Andrew Hong
+                    <ul>
+                <li><a href="https://towardsdatascience.com/your-guide-to-basic-sql-while-learning-ethereum-at-the-same-time-9eac17a05929">Your guide to basic SQL while learning Ethereum at the same time</a></li>
+                <li><a href="https://towardsdatascience.com/your-guide-to-intermediate-sql-while-learning-ethereum-at-the-same-time-7b25119ef1e2">Your guide to intermediate SQL while learning Ethereum at the same time</a></li>
                 <li><a href="https://ournetwork.mirror.xyz/gP16wLY-9BA1E_ZuOSv1EUAgYGfK9mELNza8cfgMWPQ">OurNetwork Learn: All Lectures and Materials</a></li>
+                <li><a href="https://ath.mirror.xyz/mbR1n_CvflL1KIKCTG42bnM4HpfGBqDPNndH8mu2eJw">SQL on Ethereum: 
+                    How to Work With All the Data from a Transaction</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://www.freecodecamp.org/news/sql-and-databases-full-course/">SQL and Databases - A Full Course for Beginners</a></li>
+                <li><a href="https://medium.com/zengo/dune-analytics-introduction-tutorial-with-examples-d2c764600d6">Dune Analytics introduction tutorial (with examples)</a></li>
+                <li><a href="https://andrew-hong.medium.com">might work my way through any other articles from Andrew here</a></li>
 
             </ul>
         </p>

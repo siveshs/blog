@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="styles/styles.css"> 
+    
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+      <link rel="stylesheet" title="Vs 2015" href="styles/vs2015.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+    <title>sivesh | projects</title>
+
+</head>
+<body>
+    <nav>
+        <a class="nav" href="index.html">Home</a>
+        <a class="nav" href="projects.html">Projects</a>
+    </nav>
+    <div class="main-content">
+        <h1>Analyzing USDC usage on Ethereum</h1>
+        <p style="text-align: right;">Started: Jan 10, 2021</p>
+        <p style="text-align: right;">Last edited: Jan 10, 2022</p>
+        <p>Let's say we want to see how many USDC transfers are being done per day on the Ethereum network. </p>
+        
+        <p>
+        Since USDC conforms to the requirements of an ERC-20 token, there are some <a href="https://docs.openzeppelin.com/contracts/2.x/api/token/erc20">key events</a> (logs) that get 'emitted' when an ethereum user performs certain actions. In Dune, all logged events (from any smart contract) get stored in a large table called <em>ethereum."logs"</em></p>
+        
+        <p>
+        Let's look at some transactions in this table:
+        
+        <pre><code>SELECT * FROM ethereum."logs"   -- select all columns from the data table "logs" in the ethereum database
+LIMIT 5                         -- limit to 5 rows only</code></pre>
+        </p>
+        <iframe src="https://dune.xyz/embeds/343707/655093/51ba36e1-f579-4671-b685-be7dc0a2be4a" title="dune query results - 1"></iframe>
+
+        <p>Let's start by filtering to only the events emitted by the USDC smart contract. Using <a href="https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48">etherscan.io </a> we can find that the contract address of USDC on ethereum is: 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48</p>
+
+        <pre><code>SELECT * FROM ethereum."logs"
+WHERE "contract_address"='\xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' -- filter this column using the USDC contract address
+LIMIT 5</code></pre>
+<iframe src="https://dune.xyz/embeds/343745/655158/b14b32f1-91b1-4b53-a4ca-de18eb07bb5f" title="dune query results - 2"></iframe>
+<p>
+    The 'topic1' column lists the hash of the event signature that was emitted. An easy way to find commonly emitted events from this contract is to use the <a href="https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48#events">Events tab</a> corresponding to the smart contract that we're interested in. This page lists the 25 latest events emitted during use of the smart contract. Luckily for us, transfer events are very common and we can usually find an example hash high up on the page.
+</p> 
+<p>
+    Here's an example:
+    <img src="assets/bda-usdc-1.jpg">
+</p>
+
+<p>Interestingly, Dune numbers topics from one (topic1, topic2, ...) whereas etherscan numbers them from zero (topic0, topic1, ...). So, we're going to use the event hash listed under topic0 in etherscan to filter the topic1 columns in Dune:</p>
+<pre><code>SELECT * FROM ethereum."logs"
+WHERE "contract_address"='\xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+AND "topic1"='\xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef' -- hash of transfer event signature
+LIMIT 5</code></pre>
+<iframe src="https://dune.xyz/embeds/343760/655190/3423eb14-715a-403b-a5c6-5f70c1c6a49a" title="dune query results - 3"></iframe>
+<p>
+    So, now we're listing a sample of 5 transfer events (filtered based on the event hash) emitted by the USDC smart contract (filtered by the contract address). Let's expand this query to list all transfers that occurred in the last day
+</p>
+<pre><code>SELECT * FROM ethereum."logs"
+WHERE "contract_address"='\xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+AND "topic1"='\xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef' -- hash of transfer event signature
+AND "block_time" > now() - interval '1 day' -- add a filter to find transfers that were emitted in the last day
+--                   ^          ^
+--                   |          |
+--      sql function that       |
+--      returns current         |
+--      date & time             sql operator that enables
+--                              easy calculation of time intervals
+
+-- LIMIT 5 -- here, we no longer need to limit to 5 rows</code></pre>
+    
+    <iframe src="https://dune.xyz/embeds/343791/655242/b04a2e20-724c-4e4d-b3ef-2d1de86dfc85" title="dune query results - 4"></iframe>
+    <p>
+        This is a large query and can take some time to load. If you look at the bottom-left of the query screen above, you'll notice a count of the number of rows in the table. This is the number of transfers that took place in the last 24hrs!
+    </p>
+    <p>An easier way to display this, would be to use the count() aggregator function as follows:</p>
+    <pre><code>SELECT COUNT(*) FROM ethereum."logs"    -- using the count() aggregate function to count the number of rows instead 
+WHERE "contract_address"='\xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+AND "topic1"='\xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+AND "block_time" > now() - interval '1 day'</code></pre>
+        <iframe src="https://dune.xyz/embeds/343924/655482/7cda8789-c5bf-46ac-8921-1bf83d90c9d4" title="dune query results - 5" style="height: 150px"></iframe>
+        <p>We're not done yet! We're close though.</p>
+</div>
+</body>
+</html>
