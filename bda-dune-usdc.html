@@ -27,19 +27,19 @@
     </nav>
     <div class="main-content">
         <h1>Analyzing USDC usage on Ethereum</h1>
-        <p style="text-align: right;">Started: Jan 10, 2021</p>
-        <p style="text-align: right;">Last edited: Jan 10, 2022</p>
-        <p>Let's say we want to see how many USDC transfers are being done per day on the Ethereum network. </p>
+        <p style="font-size: 0.9em; text-align: right;">Started: Jan 10, 2021</p>
+        <p style="font-size: 0.9em; text-align: right;">Last edited: Jan 10, 2022</p>
+        <p>Let's say we want to see how many USDC transfers are being done per day on the Ethereum network using <a href="https://dune.xyz/">dune.xyz</a>. </p>
         
         <p>
         Since USDC conforms to the requirements of an ERC-20 token, there are some <a href="https://docs.openzeppelin.com/contracts/2.x/api/token/erc20">key events</a> (logs) that get 'emitted' when an ethereum user performs certain actions. In Dune, all logged events (from any smart contract) get stored in a large table called <em>ethereum."logs"</em></p>
         
         <p>
-        Let's look at some transactions in this table:
+        Let's look at some events in this data table:
         
         <pre><code>SELECT * FROM ethereum."logs"   -- select all columns from the data table "logs" in the ethereum database
 LIMIT 5                         -- limit to 5 rows only</code></pre>
-        </p>
+</p>
         <iframe src="https://dune.xyz/embeds/343707/655093/51ba36e1-f579-4671-b685-be7dc0a2be4a" title="dune query results - 1"></iframe>
 
         <p>Let's start by filtering to only the events emitted by the USDC smart contract. Using <a href="https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48">etherscan.io </a> we can find that the contract address of USDC on ethereum is: 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48</p>
@@ -89,6 +89,22 @@ AND "topic1"='\xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
 AND "block_time" > now() - interval '1 day'</code></pre>
         <iframe src="https://dune.xyz/embeds/343924/655482/7cda8789-c5bf-46ac-8921-1bf83d90c9d4" title="dune query results - 5" style="height: 150px"></iframe>
         <p>We're not done yet! We're close though.</p>
+        <p>Let's go back to the code that we ran using before introduing the count() aggregate function and instead add two additional filters for topic2 and topic3 as shown below:</p>
+        <pre><code>SELECT * FROM ethereum."logs"
+WHERE "contract_address"='\xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+AND "topic1"='\xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+AND "topic2" <> '\x0000000000000000000000000000000000000000000000000000000000000000'
+                    -- ⬆️ remove events where topic2 (the 'from' address) is null. 
+                    -- This happens when USDC is 'minted' i.e. it is newly created 
+                    -- by depositing actual USD with Center, the consortium 
+                    -- that manages the USDC stablecoin
+AND "topic3" <> '\x0000000000000000000000000000000000000000000000000000000000000000'
+                    -- ⬆️ remove events where topic3 (the 'to' address) is null. 
+                    -- This happens when USDC is 'burned' i.e. it is returned to 
+                    -- the issuing smart contract and actual USD is returned to the user
+AND "block_time" > now() - interval '1 day'</code></pre>
+<iframe src="https://dune.xyz/embeds/346372/659691/60a79acd-995b-4cae-bd88-c08b4dffeb60" title="dune query results - 5"></iframe>
+<p>This particular query can take some time to run. However, the number of rows of the final table above should give us the number of USDC transfers completed within the last day. (at least up to latest transactions that Dune has ingested.</p>
 </div>
 </body>
 </html>
