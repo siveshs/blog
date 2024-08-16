@@ -1,13 +1,13 @@
-.hover-pointer:hover {
-    cursor: pointer;
-}
-
 html,
 body {
     color: #232323;
     font-family: 'Open Sans', sans-serif;
 }
 
-.button-blue {
-    color: #09387f;
+.hover-pointer:hover {
+    cursor: pointer;
+}
+
+.active-no-shadow:active {
+    border: 2px solid black;
 }
