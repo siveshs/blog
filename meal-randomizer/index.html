@@ -34,15 +34,18 @@
 
         <script type="module">
             import { h, render } from 'https://esm.sh/preact';
-            import { useState } from 'https://esm.sh/preact/hooks';
+            import { useState, useEffect } from 'https://esm.sh/preact/hooks';
             import htm from 'https://esm.sh/htm';
             // Initialize htm with Preact
             const html = htm.bind(h);
 
-            import { LunchMeal } from './LunchMeal.js';
+            import { LunchMeal, preloadImages } from './LunchMeal.js';
 
             function App(props) {
                 const [lunchMeal, setLunchMeal] = useState(new LunchMeal());
+                useEffect(() => {
+                    preloadImages();
+                }, []);
                 return html` <div class="container text-center">
                     <${LunchMealCardSet}
                         lunchMeal=${lunchMeal}
@@ -56,15 +59,16 @@
                 return html`
                     <div class="container text-center my-3 p-4">
                         <div class="row px-5 mb-2">
-                            <h2>South Indian Meals Ideas</h2>
+                            <h2 class="fw-medium">
+                                Meal Ideas
+                                <span class=""> - South Indian Lunch</span>
+                            </h2>
                         </div>
-                        <div class="row px-5">
+                        <div class="row">
                             <button
-                                class="btn btn-warning mb-2 text-dark"
+                                class="btn btn-dark text-light mb-2"
                                 onClick=${() => {
                                     let newMeal = lunchMeal.randomNewMeal();
-                                    console.log(lunchMeal);
-                                    console.log(newMeal);
                                     setLunchMeal(newMeal);
                                 }}
                             >

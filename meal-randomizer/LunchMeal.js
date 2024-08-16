@@ -273,3 +273,19 @@ export class LunchMeal {
         this.crunchy = crunchies.find((e) => e.dishId === newState.crunchy);
     }
 }
+
+export function preloadImages() {
+    const allDishes = [
+        ...rice_options,
+        ...rice_gravies,
+        ...rasams,
+        curds,
+        ...sides,
+        ...crunchies,
+    ];
+    const allDishImages = allDishes.map((dish) => dish.dishImgUrl);
+    allDishImages.forEach((imgUrl) => {
+        const img = new Image();
+        img.src = imgUrl;
+    });
+}

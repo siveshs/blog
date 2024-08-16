@@ -4,17 +4,10 @@
 
 html,
 body {
-    background-color: #f4ecd8;
-    /* color: #363743; */
-    color: #634f52;
+    color: #232323;
     font-family: 'Open Sans', sans-serif;
 }
 
 .button-blue {
     color: #09387f;
-}
-
-.card-body-color {
-    background-color: #634f52;
-    color: #f4ecd8;
 }

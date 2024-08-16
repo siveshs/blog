@@ -10,3 +10,4 @@
 -   [x] add box shadows for meal element cards
 -   [ ] setup routes for different meals (amma - lunch, yazhini, myself)
 -   [ ] evaluate adding icons to the meals (https://www.untitledui.com/blog/free-icon-sets)
+-   [ ] preload images so that application is faster

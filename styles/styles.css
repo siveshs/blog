@@ -1,9 +1,9 @@
 html,
 body {
     box-sizing: border-box;
-    background-color: #f4ecd8;
-    /* color: #363743; */
-    color: #634f52;
+    background-color: #ffffff;
+    color: #232323;
+    /* color: #634f52; */
     font-family: 'Open Sans', sans-serif;
     line-height: 1.6;
 }
@@ -20,8 +20,8 @@ nav {
 }
 
 a {
-    /* color: #363743; */
-    color: #634f52;
+    color: #363743;
+    /* color: #634f52; */
 }
 
 a:hover {
