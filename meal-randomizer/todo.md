@@ -8,6 +8,8 @@
 -   [x] enable randomize individual meal elements
 -   [x] improve grid
 -   [x] add box shadows for meal element cards
+-   [x] preload images so that application is faster
+-   [x] center button using grid display
+-   [ ] list of food items that yazhini likes
 -   [ ] setup routes for different meals (amma - lunch, yazhini, myself)
 -   [ ] evaluate adding icons to the meals (https://www.untitledui.com/blog/free-icon-sets)
--   [ ] preload images so that application is faster

@@ -57,14 +57,13 @@
             function LunchMealCardSet({ lunchMeal, setLunchMeal }) {
                 const mealElements = [...Object.keys(lunchMeal)];
                 return html`
-                    <div class="container text-center my-3 p-4">
-                        <div class="row px-5 mb-2">
-                            <h2 class="fw-medium">
-                                Meal Ideas
-                                <span class=""> - South Indian Lunch</span>
-                            </h2>
-                        </div>
-                        <div class="row">
+                    <div class="container text-center p-4">
+                        <h2 class="mb-3">
+                            Meal Ideas
+                            <span class=""> - South Indian Lunch</span>
+                        </h2>
+
+                        <div class="d-grid col-5 mx-auto">
                             <button
                                 class="btn btn-dark text-light mb-2"
                                 onClick=${() => {
