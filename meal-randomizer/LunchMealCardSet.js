@@ -11,7 +11,7 @@ export function LunchMealCardSet({ lunchMeal, setLunchMeal }) {
                 <span class=""> - South Indian Lunch</span>
             </h2>
 
-            <div class="d-grid col-5 mx-auto">
+            <div class="d-grid col-8 mx-auto">
                 <button
                     class="btn btn-dark text-light mb-2"
                     onClick=${() => {
@@ -90,9 +90,11 @@ export function LunchMealCardSet({ lunchMeal, setLunchMeal }) {
 function DishCard({ id, lunchMeal, setLunchMeal }) {
     const elem = lunchMeal[id];
 
-    return html`<div
-        class="card hover-pointer active-no-shadow"
-        style="box-shadow: lightgray 2px 2px 10px"
+    return html` <div
+        class="card hover-pointer card-box-shadow"
+        onPointerDown=${(e) => {
+            console.log(e);
+        }}
         onClick=${() => {
             let newMeal = lunchMeal.randomNewMeal(id);
             setLunchMeal(newMeal);
