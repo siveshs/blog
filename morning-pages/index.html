@@ -48,12 +48,16 @@
             <div class="container p-3 d-flex flex-column vh-custom">
                 <h1 class="text-center mb-3">Morning Pages</h1>
 
-                <div class="row mb-3 text-md-center fw-medium">
-                    <div id="word-count" class="col text-warning">words: 0</div>
-                    <div id="char-count" class="col text-warning">
+                <div class="row mb-3 text-center fw-medium">
+                    <div id="word-count" class="col-3 text-warning">
+                        words: 0
+                    </div>
+                    <div id="char-count" class="col-6 text-warning">
                         characters: 0
                     </div>
-                    <div id="page-count" class="col text-warning">pages: 0</div>
+                    <div id="page-count" class="col-3 text-warning">
+                        pages: 0
+                    </div>
                 </div>
 
                 <div class="flex-grow-1 mb-3" id="textarea-div">
@@ -84,7 +88,17 @@
 
             const currentText = localStorage.getItem('text');
             if (currentText) {
-                textArea.value = currentText;
+                const currentTime = Date.now();
+                let lastUpdatedTime = localStorage.getItem('lastUpdated');
+                lastUpdatedTime = Number.parseInt(lastUpdatedTime);
+                if (currentTime - lastUpdatedTime >= 1000 * 60 * 60 * 12) {
+                    // expired
+                    textArea.value = '';
+                    localStorage.clear();
+                } else {
+                    // not expired, use the current text
+                    textArea.value = currentText;
+                }
             }
 
             textArea.addEventListener('keydown', (e) => {
@@ -95,6 +109,7 @@
                 }
                 updateCounts();
                 localStorage.setItem('text', textArea.value);
+                localStorage.setItem('lastUpdated', Date.now());
             });
 
             delPagesBtn.addEventListener('click', () => {
