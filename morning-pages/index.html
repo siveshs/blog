@@ -30,7 +30,18 @@
     <body class="bg-secondary text-light">
         <section>
             <div class="container p-3">
-                <h1 class="text-center">Morning Pages</h1>
+                <h1 class="text-center mb-3">Morning Pages</h1>
+                <div class="row">
+                    <div id="word-count" class="col-md text-warning">
+                        words: 0
+                    </div>
+                    <div id="char-count" class="col-md text-warning">
+                        characters: 0
+                    </div>
+                    <div id="page-count" class="col-md text-warning">
+                        pages: 0
+                    </div>
+                </div>
                 <form>
                     <!-- <label for="main-text-area">Start typing:</label> -->
                     <textarea
@@ -39,14 +50,14 @@
                         placeholder="Start typing..."
                         rows="20"
                     ></textarea>
-                </form>
-                <div class="row">
-                    <div id="word-count" class="col-md">Number of words: 0</div>
-                    <div id="char-count" class="col-md">
-                        Number of characters: 0
+                    <div class="row">
+                        <div class="col text-center">
+                            <button class="btn btn-warning" id="delete-pages">
+                                Delete Pages
+                            </button>
+                        </div>
                     </div>
-                    <div id="page-count" class="col-md">Number of pages: 0</div>
-                </div>
+                </form>
             </div>
         </section>
 
@@ -55,6 +66,12 @@
             const wordCount = document.getElementById('word-count');
             const charCount = document.getElementById('char-count');
             const pageCount = document.getElementById('page-count');
+            const delPagesBtn = document.getElementById('delete-pages');
+
+            const currentText = localStorage.getItem('text');
+            if (currentText) {
+                textArea.value = currentText;
+            }
 
             textArea.addEventListener('keydown', (e) => {
                 if (e.code === 'Backspace') {
@@ -64,11 +81,18 @@
                 }
                 const numOfChars = textArea.value.length;
                 const numOfWords = textArea.value.split(' ').length;
-                const numOfPages = Math.round((numOfWords / 250) * 100) / 100;
-                console.log(numOfPages);
-                wordCount.innerText = `Number of words: ${numOfWords}`;
-                charCount.innerText = `Number of characters: ${numOfChars}`;
-                pageCount.innerText = `Number of pages: ${numOfPages}`;
+                const numOfPages = Math.round((numOfWords / 450) * 100) / 100;
+
+                wordCount.innerText = `words: ${numOfWords}`;
+                charCount.innerText = `characters: ${numOfChars}`;
+                pageCount.innerText = `pages: ${numOfPages}`;
+
+                localStorage.setItem('text', textArea.value);
+            });
+
+            delPagesBtn.addEventListener('click', () => {
+                localStorage.clear();
+                textArea.value = currentText;
             });
         </script>
 
