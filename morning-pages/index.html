@@ -93,14 +93,7 @@
                     e.preventDefault();
                     return;
                 }
-                const numOfChars = textArea.value.length;
-                const numOfWords = textArea.value.split(/\s/).length;
-                const numOfPages = Math.round((numOfWords / 450) * 100) / 100;
-
-                wordCount.innerText = `words: ${numOfWords}`;
-                charCount.innerText = `characters: ${numOfChars}`;
-                pageCount.innerText = `pages: ${numOfPages}`;
-
+                updateCounts();
                 localStorage.setItem('text', textArea.value);
             });
 
@@ -109,9 +102,22 @@
                 textAreaDiv.style.setProperty('opacity', '0');
                 setTimeout(() => {
                     textArea.value = '';
+                    console.log(`chars:${textArea.value.length}`);
+                    console.log(`words:${textArea.value.split(/\s/).length}`);
+                    updateCounts();
                     textAreaDiv.style.setProperty('opacity', '100');
                 }, 600);
             });
+
+            function updateCounts() {
+                const numOfChars = textArea.value.length;
+                const numOfWords = textArea.value.split(/\s/).length - 1;
+                const numOfPages = Math.round((numOfWords / 450) * 100) / 100;
+
+                wordCount.innerText = `words: ${numOfWords}`;
+                charCount.innerText = `characters: ${numOfChars}`;
+                pageCount.innerText = `pages: ${numOfPages}`;
+            }
         </script>
 
         <script
