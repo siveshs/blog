@@ -36,6 +36,10 @@
             .vh-custom {
                 height: 89vh;
             }
+
+            #textarea-div {
+                transition: opacity 600ms ease-in-out;
+            }
         </style>
     </head>
 
@@ -52,9 +56,9 @@
                     <div id="page-count" class="col text-warning">pages: 0</div>
                 </div>
 
-                <div class="flex-grow-1 mb-3">
+                <div class="flex-grow-1 mb-3" id="textarea-div">
                     <textarea
-                        class="form-control w-100 h-100 rounded-3 noresize"
+                        class="form-control w-100 h-100 rounded-3 noresize text-area-animate"
                         id="main-text-area"
                         placeholder="Start typing..."
                     ></textarea>
@@ -72,6 +76,7 @@
 
         <script>
             const textArea = document.getElementById('main-text-area');
+            const textAreaDiv = document.getElementById('textarea-div');
             const wordCount = document.getElementById('word-count');
             const charCount = document.getElementById('char-count');
             const pageCount = document.getElementById('page-count');
@@ -89,7 +94,7 @@
                     return;
                 }
                 const numOfChars = textArea.value.length;
-                const numOfWords = textArea.value.split(' ').length;
+                const numOfWords = textArea.value.split(/\s/).length;
                 const numOfPages = Math.round((numOfWords / 450) * 100) / 100;
 
                 wordCount.innerText = `words: ${numOfWords}`;
@@ -101,7 +106,11 @@
 
             delPagesBtn.addEventListener('click', () => {
                 localStorage.clear();
-                textArea.value = '';
+                textAreaDiv.style.setProperty('opacity', '0');
+                setTimeout(() => {
+                    textArea.value = '';
+                    textAreaDiv.style.setProperty('opacity', '100');
+                }, 600);
             });
         </script>
 
