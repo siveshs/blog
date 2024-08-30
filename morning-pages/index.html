@@ -52,7 +52,11 @@
                     ></textarea>
                     <div class="row">
                         <div class="col text-center">
-                            <button class="btn btn-warning" id="delete-pages">
+                            <button
+                                class="btn btn-warning"
+                                id="delete-pages"
+                                type="button"
+                            >
                                 Delete Pages
                             </button>
                         </div>
@@ -92,7 +96,7 @@
 
             delPagesBtn.addEventListener('click', () => {
                 localStorage.clear();
-                textArea.value = currentText;
+                textArea.value = '';
             });
         </script>
 
