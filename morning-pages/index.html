@@ -22,7 +22,7 @@
             }
 
             .border-black {
-                border: 1px solid black;
+                border: 2px solid black;
             }
 
             .noresize {
@@ -43,33 +43,26 @@
         </style>
     </head>
 
-    <body class="bg-secondary text-light">
+    <body class="bg-light text-dark">
         <section>
             <div class="container p-3 d-flex flex-column vh-custom">
                 <h1 class="text-center mb-3">Morning Pages</h1>
-
-                <div class="row mb-3 text-center fw-medium">
-                    <div id="word-count" class="col-3 text-warning">
-                        words: 0
-                    </div>
-                    <div id="char-count" class="col-6 text-warning">
-                        characters: 0
-                    </div>
-                    <div id="page-count" class="col-3 text-warning">
-                        pages: 0
-                    </div>
+                <div class="row mb-3 text-center text-secondary">
+                    <div id="word-count" class="col">words: 0</div>
+                    <div id="char-count" class="col">characters: 0</div>
+                    <div id="page-count" class="col">pages: 0</div>
                 </div>
 
                 <div class="flex-grow-1 mb-3" id="textarea-div">
                     <textarea
-                        class="form-control w-100 h-100 rounded-3 noresize text-area-animate"
+                        class="form-control w-100 h-100 rounded-3 noresize text-area-animate shadow border-black"
                         id="main-text-area"
                         placeholder="Start typing..."
                     ></textarea>
                 </div>
 
                 <button
-                    class="btn btn-warning rounded-3"
+                    class="btn btn-primary rounded-3 shadow border-black fw-medium"
                     id="delete-pages"
                     type="button"
                 >
