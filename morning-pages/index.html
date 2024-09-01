@@ -11,6 +11,48 @@
             crossorigin="anonymous"
         />
         <style>
+            :root {
+                --col1: #f9f7f7;
+                --col2: #dbe2ef;
+                --col3: #3f72af;
+                --col4: #112d4e;
+            }
+
+            .gradient-bg {
+                background-color: #dbe2ef;
+                background-image: linear-gradient(
+                    195deg,
+                    #dbe2ef 40%,
+                    #3f72af 92%,
+                    #112d4e 110%
+                );
+            }
+
+            .col1-bg {
+                background-color: var(--col1) !important;
+            }
+            .col1-text {
+                color: var(--col1) !important;
+            }
+            .col2-bg {
+                background-color: var(--col2) !important;
+            }
+            .col2-text {
+                color: var(--col2) !important;
+            }
+            .col3-bg {
+                background-color: var(--col3) !important;
+            }
+            .col3-text {
+                color: var(--col3) !important;
+            }
+            .col4-bg {
+                background-color: var(--col4) !important;
+            }
+            .col4-text {
+                color: var(--col4) !important;
+            }
+
             .noselect {
                 -webkit-touch-callout: none; /* iOS Safari */
                 -webkit-user-select: none; /* Safari */
@@ -43,31 +85,62 @@
         </style>
     </head>
 
-    <body class="bg-light text-dark">
+    <body class="col2-bg vh-100 col3-text">
         <section>
             <div class="container p-3 d-flex flex-column vh-custom">
-                <h1 class="text-center mb-3">Morning Pages</h1>
-                <div class="row mb-3 text-center text-secondary">
-                    <div id="word-count" class="col">words: 0</div>
-                    <div id="char-count" class="col">characters: 0</div>
-                    <div id="page-count" class="col">pages: 0</div>
+                <div class="row col3-text align-items-center mx-2 my-3">
+                    <div class="col-lg-7">
+                        <h2 class="col4-text fw-semibold">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="32"
+                                height="32"
+                                fill="currentColor"
+                                class="bi bi-brightness-alt-high-fill"
+                                viewBox="0 0 16 16"
+                            >
+                                <path
+                                    d="M8 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 3m8 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5m-13.5.5a.5.5 0 0 0 0-1h-2a.5.5 0 0 0 0 1zm11.157-6.157a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m-9.9 2.121a.5.5 0 0 0 .707-.707L3.05 5.343a.5.5 0 1 0-.707.707zM8 7a4 4 0 0 0-4 4 .5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5 4 4 0 0 0-4-4"
+                                />
+                            </svg>
+                            morning pages
+                        </h2>
+                    </div>
+
+                    <div id="word-count" class="col">0 word(s)</div>
+                    <div id="page-count" class="col">0 page(s)</div>
+                    <div id="delete-pages-div" class="col-2 col-lg-1">
+                        <button
+                            class="btn rounded-3 shadow col3-bg col1-text"
+                            id="delete-pages"
+                            type="button"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="24"
+                                fill="currentColor"
+                                class="bi bi-trash"
+                                viewBox="0 0 16 16"
+                            >
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"
+                                />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"
+                                />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="flex-grow-1 mb-3" id="textarea-div">
                     <textarea
-                        class="form-control w-100 h-100 rounded-3 noresize text-area-animate shadow border-black"
+                        class="form-control w-100 h-100 rounded-3 noresize text-area-animate shadow col4-text col1-bg"
                         id="main-text-area"
                         placeholder="Start typing..."
                     ></textarea>
                 </div>
-
-                <button
-                    class="btn btn-primary rounded-3 shadow border-black fw-medium"
-                    id="delete-pages"
-                    type="button"
-                >
-                    Delete Pages
-                </button>
             </div>
         </section>
 
@@ -75,7 +148,6 @@
             const textArea = document.getElementById('main-text-area');
             const textAreaDiv = document.getElementById('textarea-div');
             const wordCount = document.getElementById('word-count');
-            const charCount = document.getElementById('char-count');
             const pageCount = document.getElementById('page-count');
             const delPagesBtn = document.getElementById('delete-pages');
 
@@ -91,6 +163,7 @@
                 } else {
                     // not expired, use the current text
                     textArea.value = currentText;
+                    updateCounts();
                 }
             }
 
@@ -110,21 +183,17 @@
                 textAreaDiv.style.setProperty('opacity', '0');
                 setTimeout(() => {
                     textArea.value = '';
-                    console.log(`chars:${textArea.value.length}`);
-                    console.log(`words:${textArea.value.split(/\s/).length}`);
                     updateCounts();
                     textAreaDiv.style.setProperty('opacity', '100');
                 }, 600);
             });
 
             function updateCounts() {
-                const numOfChars = textArea.value.length;
-                const numOfWords = textArea.value.split(/\s/).length - 1;
+                const numOfWords = textArea.value.split(/\s/).length;
                 const numOfPages = Math.round((numOfWords / 450) * 100) / 100;
 
-                wordCount.innerText = `words: ${numOfWords}`;
-                charCount.innerText = `characters: ${numOfChars}`;
-                pageCount.innerText = `pages: ${numOfPages}`;
+                wordCount.innerText = `${numOfWords} word(s)`;
+                pageCount.innerText = `${numOfPages} page(s)`;
             }
         </script>
 
